@@ -1,5 +1,5 @@
-import app from './app.js';
-import { mongoConnect } from './services/mongoConnection.js';
+import app from './app';
+import { mongoConnect } from './services/mongoConnection';
 
 const startServer = async () => {
   await mongoConnect();

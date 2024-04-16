@@ -1,0 +1,517 @@
+openapi: 3.0.0
+info:
+  title: My brand serverside
+  description: API for managing my brand site
+  version: 1.0.0 
+
+servers:
+  - url: http://localhost:8080
+  - url: https://mybrand-be-3mug.onrender.com
+
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Signup:
+      type: object
+      properties:
+        username:
+          type: string
+          description: username
+        email:
+          type: string
+          description: email
+        password:
+          type: string
+          description: password
+      example:
+        username: "kavuyo"
+        email: "kavuyo@gmail.com"
+        password: "my@pass12"
+
+    Users:
+      type: object
+      properties:
+        username:
+          type: string
+          description: username
+        email:
+          type: string
+          description: email
+        password:
+          type: string
+          description: password
+      example:
+        username: "kavuyo"
+        email: "kavuyo@gmail.com"
+        password: "my@pass12"
+
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+          description: username
+        password:
+          type: string
+          description: password
+      example:
+        username: "kavuyo"
+        password: "my@pass12"
+
+    Blogs:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of a blog
+        description:
+          type: string
+          description: Description of a blog
+        image:
+          type: string
+          description: Image of a blog
+      example:
+        title: Arsenal fans
+        description: Arsenal fans on the street are causing troubles
+
+    Comments:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of commenter
+        conent:
+          type: string
+          description: the comment
+      example:
+        name: Rugamba
+        description: What are the asenal fans doing here
+
+    Likes:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: ID of the user who is liking the blog
+      required:
+        - userId
+
+    Queries:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of query owner
+        message:
+          type: string
+          description: message sent
+
+tags:
+  - name: Users
+    description: Endpoints users
+  - name: Blogs
+    description: Endpoints for blogs
+  - name: Queries
+    description: Endpoints for queries
+
+paths:
+  /api/v1/users/register:
+    post:
+      summary: Register a user
+      tags: [Users]
+      description: End points to Register a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Signup"
+      responses:
+        "200":
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Signup"
+        "401":
+          description: Unauthorized, authentication error
+        "500":
+          description: Internal server error
+
+  /api/v1/users/login:
+    post:
+      summary: "Login a user"
+      tags: [Users]
+      description: "Endpoint for login a user"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Login"
+      responses:
+        "200":
+          description: "You've Login"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Login"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+
+  /api/v1/users:
+    get:
+      summary: Get all users
+      tags: [Users]
+      description: Endpoint to retrieve all users
+      security:
+        - BearerAuth: []
+      operationId: getAllUsers
+      responses:
+        "200":
+          description: List of all users
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        "401":
+          description: Unauthorized
+        "404":
+          description: users not found
+        "500":
+          description: Internal server error
+
+  /api/v1/users/{id}:
+    get:
+      summary: Get a single user
+      tags: [Users]
+      description: Endpoint to retrieve one user
+      operationId: getSingleBlog
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: id of a user to be retrieved
+      responses:
+        "200":
+          description: Successful found a user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        "401":
+          description: Unauthorized
+        "404":
+          description: user not found
+        "500":
+          description: Internal server error
+
+  /api/v1/blogs:
+    post:
+      sammary: Create a blog
+      tags: [Blogs]
+      description: Endpoint for creating blog
+      operationId: createBlog
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: title of the blog
+                description:
+                  type: string
+                  description: description of a blog
+                image:
+                  type: string
+                  description: Image of the blog
+                  format: binary
+      responses:
+        "201":
+          description: blog created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blogs'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+          
+    get:
+      summary: Get all blogs
+      tags: [Blogs]
+      description: Endpoint to retrieve all blogs
+      operationId: getAllBlogs
+      responses:
+        "200":
+          description: List of all blogs
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Blogs"
+        "404":
+          description: blog not found
+        "500":
+          description: Internal server error
+
+  /api/v1/blogs/{id}:
+    get:
+      summary: Get a single blog
+      tags: [Blogs]
+      description: Endpoint to retrieve one blog
+      operationId: getSingleBlog
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: id of a blog to be retrieved
+      responses:
+        "200":
+          description: Successful found a blog
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Blogs"
+        "401":
+          description: Unauthorized
+        "404":
+          description: blog not found
+        "500":
+          description: Internal server error
+          
+    delete:
+      summary: Delete a blog
+      tags: [Blogs]
+      description: Endpoint to delete a blog
+      operationId: deleteBlog
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The blog to be deleted
+      responses:
+        "200":
+          description: Successful deleted a blog
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Blogs"
+        "401":
+          description: Unauthorized
+        "404":
+          description: blog not found
+        "500":
+          description: Internal server error
+          
+    patch:
+      tags: [Blogs]
+      summary: Update an existing blog
+      description: Update an existing blog by Id
+      operationId: updateBlog
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: Update an existent blog in the store
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: title of the blog
+                description:
+                  type: string
+                  description: description of a blog
+                image:
+                  type: string
+                  description: Image of the blog
+                  format: binary
+      responses:
+        "201":
+          description: blog updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blogs'
+        '401':
+          description: Unauthorized
+        '404':
+          description: blog not found
+        '500':
+          description: Internal Server Error
+  /api/v1/blogs/{id}/comments:
+    post:
+      summary: Create a comment for a blog
+      tags: [Blogs]
+      description: Endpoint for creating a comment for a blog
+      operationId: createBlogComment
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the blog
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Title of the comment
+                content:
+                  type: string
+                  description: Content of the comment
+      responses:
+        '201':
+          description: Comment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comments'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Blog not found
+        '500':
+          description: Internal Server Error
+          
+    get:
+      summary: Get comments of a blog
+      tags: [Blogs]
+      description: comments of a blog
+      operationId: getBlogComments
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: blog id to add a comment
+      responses:
+        "200":
+          description: Successful found a comment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comments"
+        "401":
+          description: Unauthorized
+        "404":
+          description: blog not found
+        "500":
+          description: Internal server error
+
+  /api/v1/blogs/{id}/likes:
+    post:
+      sammary: Add a like
+      tags: [Blogs]
+      description: Endpoint for creadding a like on a blog
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: id of blog to like
+      responses:
+        "201":
+          description: Successfully added a like
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Likes"
+        "401":
+          description: Unauthorized
+        "404":
+          description: blog not found
+        "500":
+          description: Internal server error
+
+  /api/v1/queries:
+    get:
+      summary: Get all queries
+      tags: [Queries]
+      description: Endpoint to retrieve all queries
+      security:
+        - BearerAuth: []
+      operationId: getAllQueries
+      responses:
+        "200":
+          description: List of all queries
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Queries"
+        "401":
+          description: Unauthorized
+        "400":
+          description: bad request
+        "404":
+          description: query not found
+        "500":
+          description: Internal server error
+
+    post:
+      sammary: Create a query
+      tags: [Queries]
+      description: Endpoint for creadding a query
+      operationId: createQuery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: name of the sender
+                message:
+                  type: string
+                  description: message to be sent
+      responses:
+        '201':
+          description: query created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Queries'
+        '400':
+          description: bad request
+        '500':
+          description: Internal Server Error
+      
