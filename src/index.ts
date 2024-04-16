@@ -9,4 +9,6 @@ const startServer = async () => {
   });
 };
 
+const foo = 1;
+
 startServer();
