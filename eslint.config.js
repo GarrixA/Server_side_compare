@@ -12,7 +12,7 @@ export default tseslint.config(
 			parserOptions: {
 				project: true,
 				tsconfigRootDir: import.meta.dirname,
-				ecmaVersion: 2020
+				ecmaVersion: 2020,
 			},
 		},
 	},
@@ -64,7 +64,6 @@ export default tseslint.config(
 						ClassDeclaration: true,
 					},
 				},
-		
 			],
 		},
 	},
