@@ -5,13 +5,13 @@
 	"main": "src/index.ts",
 	"type": "module",
 	"scripts": {
-		"test": "jest --no-cache --detectOpenHandles",
+		"tests": "jest --no-cache --detectOpenHandles",
 		"test-test": "jest --watchAll --no-cache --detectOpenHandles",
 		"test:ci": "jest --detectOpenHandles --coverage",
 		"dev": "ts-node-dev src/index.ts",
 		"check": "prettier . --check",
 		"beautify": "prettier . --write",
-		"prepare": "husky install"
+		"prepare": "husky"
 	},
 	"keywords": [],
 	"author": "",
