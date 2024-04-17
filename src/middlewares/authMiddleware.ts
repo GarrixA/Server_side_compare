@@ -2,29 +2,32 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 interface AuthenticatedRequest extends Request {
-  user?: any;
+	user?: any;
 }
 
-const verifyToken = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-  const authorizationHeader = req.headers["authorization"]
-  if (!authorizationHeader) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
+const verifyToken = async (
+	req: AuthenticatedRequest,
+	res: Response,
+	next: NextFunction,
+) => {
+	const authorizationHeader = req.headers["authorization"];
+	if (!authorizationHeader) {
+		return res.status(401).json({ error: "Unauthorized" });
+	}
 
-  const token = authorizationHeader?.split(" ")[1];
-  if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
+	const token = authorizationHeader?.split(" ")[1];
+	if (!token) {
+		return res.status(401).json({ error: "Unauthorized" });
+	}
 
-  try {
-    const decoded = jwt.verify(token, "my_secret_keyIs£1000Kand$1000K");
-    // req.user = decoded;
-    return decoded
-    next();
-  } catch (error) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
+	try {
+		const decoded = jwt.verify(token, "my_secret_keyIs£1000Kand$1000K");
+		// req.user = decoded;
+		return decoded;
+		next();
+	} catch (error) {
+		return res.status(401).json({ error: "Unauthorized" });
+	}
 };
-
 
 export default verifyToken;
