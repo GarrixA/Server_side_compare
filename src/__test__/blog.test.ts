@@ -18,7 +18,6 @@ import blogSchema from "../models/blogSchema";
 let token: string;
 jest.setTimeout(10000);
 let id: mongoose.Types.ObjectId;
-// eslint-disable-next-line prefer-const
 id = new mongoose.Types.ObjectId();
 describe("My Blog API", () => {
 	beforeAll(async () => {
@@ -47,7 +46,6 @@ describe("My Blog API", () => {
 		});
 
 		it("should sign up and login ", async () => {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { body } = await request(app)
 				.post("/api/v1/users/register")
 				.send(signupAdminData)
@@ -62,7 +60,6 @@ describe("My Blog API", () => {
 		});
 
 		it("should return 201 and blog created", async () => {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { body } = await request(app)
 				.post("/api/v1/blogs")
 				.set("Authorization", `Bearer ${token}`)
@@ -75,7 +72,6 @@ describe("My Blog API", () => {
 		it("Should return 200 and updated blog", async () => {
 			const updatedBlog = await new Blog(blogData);
 			await updatedBlog.save();
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { body } = await request(app)
 				.patch(`/api/v1/blogs/${updatedBlog._id}`)
 				.set("Authorization", `Bearer ${token}`)
