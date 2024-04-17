@@ -12,7 +12,6 @@ const options = {
 };
 
 const swaggerDocument = YAML.load("./src/config/swagger.yaml");
-
 const app = express();
 
 app.use(express.json());

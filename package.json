@@ -12,15 +12,17 @@
 		"dev": "ts-node-dev src/index.ts",
 		"check": "prettier . --check",
 		"beautify": "prettier . --write",
-		"prepare": "husky"
+		"prepare": "husky",
+		"lint": "eslint .",
+		"pre": "prettier . --write && eslint ."
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "lint-staged"
+			"pre-commit": "prettier . --write"
 		}
 	},
 	"lint-staged": {
-		"*": "prettier --write"
+		"*.ts": "prettier --write"
 	},
 	"keywords": [],
 	"author": "",
