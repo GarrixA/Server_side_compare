@@ -6,9 +6,9 @@ import cors from "cors";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const options = {
-origin: ["*"],
-credentials: true,
-optionsSuccessStatus: 200,
+	origin: ["*"],
+	credentials: true,
+	optionsSuccessStatus: 200,
 };
 
 const swaggerDocument = YAML.load("./src/config/swagger.yaml");
