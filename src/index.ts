@@ -6,8 +6,8 @@ const startServer = async () => {
 
 	app.listen(8080, () => {
 
-		console.log("server is listening ..... 8080");
-		
+		console.log("server is listening ..... 8080")
+
 	})
 };
 
