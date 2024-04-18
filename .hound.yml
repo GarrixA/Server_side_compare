@@ -1,5 +1,6 @@
 eslint:
   enabled: true
+  config_file: eslint.config
   file_patterns:
     - '*.js'
     - '*.ts'
