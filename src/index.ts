@@ -1,6 +1,8 @@
 import app from "./app";
 import { mongoConnect } from "./services/mongoConnection";
 
+let x = 0
+
 const startServer = async () => {
 	await mongoConnect();
 
