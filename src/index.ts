@@ -8,4 +8,4 @@ const startServer = async () => {
 		console.log("server is listening ..... 8080");
 	});
 };
-startServer();
+startServer()
