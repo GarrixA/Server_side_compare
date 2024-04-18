@@ -1,5 +1,6 @@
 eslint:
   enabled: true
+  config_file: eslint.config
   file_patterns:
     - '*.js'
     - '*.ts'
@@ -7,4 +8,3 @@ eslint:
     - eslint-plugin-import
     - eslint-plugin-prettier
     - eslint-plugin:@typescript-eslint
-    
