@@ -44,7 +44,7 @@ export default tseslint.config(
 			"consistent-return": 0,
 			"no-param-reassign": 0,
 			"comma-dangle": 0,
-			'no-console': 0,
+			"no-console": 0,
 			curly: ["error", "multi-line"],
 			strict: 0,
 			"valid-jsdoc": [
