@@ -3,7 +3,7 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
 	{
-		ignores: ["**/src", "**.ts"],
+		ignores: ["**/src", ""],
 	},
 	eslint.configs.recommended,
 	...tseslint.configs.recommended,
