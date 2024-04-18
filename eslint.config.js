@@ -35,7 +35,7 @@ export default tseslint.config(
 	},
 	{
 		rules: {
-			semi: "error",
+			semi: 2,
 			"@typescript-eslint/no-unused-vars": 2,
 			"@typescript-eslint/no-explicit-any": 0,
 			"no-shadow": [2, { allow: ["req", "res", "err"] }],
@@ -44,6 +44,7 @@ export default tseslint.config(
 			"consistent-return": 0,
 			"no-param-reassign": 0,
 			"comma-dangle": 0,
+			'no-console': 0,
 			curly: ["error", "multi-line"],
 			strict: 0,
 			"valid-jsdoc": [
