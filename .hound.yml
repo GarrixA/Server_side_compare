@@ -1,3 +1,12 @@
-eslint:
-  enabled: true
-  config_file: eslint.config.js
+linters:
+  eslint:
+    enabled: true
+    config_file: eslint.config
+    file_patterns:
+      - '*.js'
+      - '*.ts'
+    enabled_plugins:
+      - eslint-plugin-react
+      - eslint-plugin-import
+      - eslint-plugin-prettier
+      - eslint-plugin:@typescript-eslint
