@@ -1,4 +1,3 @@
-typescript:
-  eslint:
-    enabled: true
-    config_file: eslint.config.js
+eslint:
+  enabled: true
+  config_file: eslint.config.js
