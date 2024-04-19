@@ -3,7 +3,7 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
 	{
-		ignores: ["", ""],
+		ignores: ["**/__test__", ""],
 	},
 	eslint.configs.recommended,
 	...tseslint.configs.recommended,
